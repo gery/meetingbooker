@@ -123,6 +123,22 @@ class MeetingApplicationTests {
 		assertThat(meetings.size()).isEqualTo(0);
 	}
 
+	@Test
+	void testValidationWrongTime() throws Exception {
+		meetingRepository.deleteAll();
+
+		this.mockMvc.perform(
+				post("/meeting")
+						.contentType("application/json")
+						.content(
+								"{\"name\": \"Joe\", \"date\": \"2023-09-16\", \"timeFrom\": \"09:37\", \"timeTo\": \"10:00\"}"))
+				.andExpect(status().isBadRequest())
+				.andExpect(content().string("{\"errors\":[\"Invalid TimeFrom, 00 or 30 minutes ending required\"]}"));
+
+		Collection<Meeting> meetings = meetingRepository.findAll();
+		assertThat(meetings.size()).isEqualTo(0);
+	}	
+
 
 	@Test
 	void test4BookingsOnOneDay() throws Exception {
