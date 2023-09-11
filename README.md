@@ -7,6 +7,11 @@ Example Java Spring Boot project.
 
 ![Screenshot from 2023-09-11 12-27-16](https://github.com/gery/meetingbooker/assets/1073386/175c0b79-41fd-4c0d-ae33-2d828f1bbba3)
 
+Colors: 
+  - Green: free
+  - Gray: reserved by others (Just hover the mouse on the cells and you can see who reserved it) 
+  - Purple: actual selected time interval
+
 Requirements:
 - Java 18
 - Maven
