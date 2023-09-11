@@ -20,4 +20,5 @@ Database admin:
 http://localhost:8080/h2-console
 
 spring.datasource.username=sa
+
 spring.datasource.password=
