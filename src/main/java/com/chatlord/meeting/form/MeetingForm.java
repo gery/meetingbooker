@@ -16,26 +16,23 @@ public class MeetingForm {
     String date;
 
     @NotEmpty(message = "Invalid TimeFrom: timeFrom is empty")
-    @Pattern(regexp = ".*(00|30)$", message = "TimeTo should be 00 or 30 minutes ending")
+    @Pattern(regexp = ".*(00|30)$", message = "Invalid TimeFrom, 00 or 30 minutes ending required")
     @Pattern(regexp = "^(09|10|11|12|13|14|15|16|17).*", message = "TimeFrom hour should be between 09 and 17")
     String timeFrom;
 
     @NotEmpty(message = "Invalid TimeTo: timeTo is empty")
-    @Pattern(regexp = ".*(00|30)$", message = "TimeTo should be 00 or 30 minutes ending")
+    @Pattern(regexp = ".*(00|30)$", message = "Invalid TimeTo, 00 or 30 minutes ending required")
     @Pattern(regexp = "^(09|10|11|12|13|14|15|16|17).*", message = "TimeTo hour should be between 09 and 17")
     String timeTo;
 
-    // static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd
-    // HH:mm");
     static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public Meeting toEntity() {
 
-        LocalDateTime fromDate = LocalDateTime.parse(date + " " + timeFrom, formatter); // formatter.parse(date +"
-                                                                                        // "+timeFrom);
-        LocalDateTime toDate = LocalDateTime.parse(date + " " + timeTo, formatter); // formatter.parse(date +"
-                                                                                    // "+timeTo);
-
+        LocalDateTime fromDate = LocalDateTime.parse(date + " " + timeFrom, formatter); 
+                                                                                       
+        LocalDateTime toDate = LocalDateTime.parse(date + " " + timeTo, formatter); 
+                                                                                   
         return Meeting.builder()
                 .name(name)
                 .timeFrom(fromDate)
