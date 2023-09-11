@@ -18,4 +18,6 @@ Enter in your browser: http://localhost:8080/
 
 Database admin:
 http://localhost:8080/h2-console
-default name/password
+
+spring.datasource.username=sa
+spring.datasource.password=
