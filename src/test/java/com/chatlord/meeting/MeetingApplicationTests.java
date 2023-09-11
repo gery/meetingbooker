@@ -105,6 +105,25 @@ class MeetingApplicationTests {
 		assertThat(meetings.size()).isEqualTo(0);
 	}
 
+
+
+	@Test
+	void testValidationMorning() throws Exception {
+		meetingRepository.deleteAll();
+
+		this.mockMvc.perform(
+				post("/meeting")
+						.contentType("application/json")
+						.content(
+								"{\"name\": \"Joe\", \"date\": \"2023-09-16\", \"timeFrom\": \"08:00\", \"timeTo\": \"10:00\"}"))
+				.andExpect(status().isBadRequest())
+				.andExpect(content().string("{\"errors\":[\"TimeFrom hour should be between 09 and 17\"]}"));
+
+		Collection<Meeting> meetings = meetingRepository.findAll();
+		assertThat(meetings.size()).isEqualTo(0);
+	}
+
+
 	@Test
 	void test4BookingsOnOneDay() throws Exception {
 		meetingRepository.deleteAll();
