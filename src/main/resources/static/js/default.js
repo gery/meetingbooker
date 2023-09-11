@@ -13,7 +13,6 @@ let RESERVED_COLOR = "lightgray";
 
 
 $(function () {
-
   $.datepicker.setDefaults({
     firstDay: 1,
     beforeShowDay: $.datepicker.noWeekends
@@ -26,12 +25,14 @@ $(function () {
 
   $("#datepicker").datepicker()
     .on("change", function (event) {
-      console.log("Got change event from field " + getSelectedDate());
       getBookings(getSelectedDate());
     });
 
   createCalendar();
-}); FREE_COLORBOOKING_COLOR
+});
+
+
+function getSelectedDate() {
   return $('#datepicker').datepicker({ dateFormat: 'yy-mm-dd' }).val();
 }
 
@@ -66,10 +67,7 @@ function sendBooking() {
   console.log("clientName=" + clientName);
   var date = getSelectedDate();
   addBooking(clientName, date, timeLabels[firstId], timeLabels[secondId + 1])
-
 }
-
-
 
 function addBooking(clientName, date, timeFrom, timeTo) {
   $.ajax({
@@ -97,7 +95,6 @@ function addBooking(clientName, date, timeFrom, timeTo) {
   });
 }
 
-
 function showErrors(errors) {
   $("#resultMessage").html("");
   let text = "<ul>";
@@ -105,7 +102,10 @@ function showErrors(errors) {
     text += "<li>" + errors[i] + "</li>";
   }
   text += "</ul>";
-  $("#resultMessage").html(text);RESERVED_COLOR
+  $("#resultMessage").html(text);
+}
+
+function getBookings(dateString) {
   clearCalendar();
   if (dateString == null || dateString == "") return;
   $.ajax({
@@ -116,22 +116,13 @@ function showErrors(errors) {
 
     },
     error: function (e) {
-      var result = JSON.parse(e.responseText);
 
-      let text = "<ul>";
-      for (let i = 0; i < result.errors.length; i++) {
-        text += "<li>" + result.errors[i] + "</li>";
-      }
-      text += "</ul>";
-
-      $("#resultMessage").html(text);
     },
     processData: false,
     type: 'GET',
     url: '/meetingByDay/' + dateString
   });
 }
-
 
 
 function createCalendar() {
@@ -142,8 +133,6 @@ function createCalendar() {
     cell.id = "cell" + i;
     cell.innerText = timeLabels[i];
     cell.addEventListener('click', function onClick(event) {
-
-
       var color = window.getComputedStyle(event.target, null).getPropertyValue('background-color');
       console.log("color=" + color);
       if (allowCollision == false && color != FREE_COLOR) return;
