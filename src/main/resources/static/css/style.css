@@ -1,0 +1,54 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+table {
+    font-size: 1em;
+}
+
+.ui-draggable, .ui-droppable {
+    background-position: top;
+}
+
+.cell{
+  width:50px;
+  height:50px;
+  border:2px solid rgb(12, 75, 134);
+  margin:2px;
+  display: block;
+  float: left;
+  font-size: 16px;
+  text-align: center;
+  background-color: rgb(135, 216, 135);
+}
+
+#reserveButton {
+  background-color: #98bfda; /* Green */
+  border: none;
+  color: rgb(75, 14, 14);
+  padding: 8px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+input {
+    background-color: #bfd0dd; /* Green */
+    font-size: 18px;
+}
+
+th{
+    text-align: right;
+    font-size: 18px;
+}
+
+#resultMessage{
+    max-width: 500px; text-align : left; display: block; background-color: rgb(218, 151, 151); 
+}

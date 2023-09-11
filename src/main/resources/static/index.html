@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meeting booker</title>
+  <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"> -->
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script src="js/default.js"></script>
+  <script src="js/BookingTest.js"></script>
+</head>
+
+<body>
+  <div style="text-align: center;max-width: 950px;">
+    <h1 style="text-align: center;">Meeting Booker</h1>
+    <table class="center">
+      <tr>
+        <th> Name </th>
+        <td> <input type="text" id="clientName" size="20" /></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <div id="datepicker" />
+        </td>
+      </tr>
+    </table>
+    <br>
+    &nbsp;&nbsp; <button type="button" id="reserveButton" onclick="sendBooking()">Reserve</button> &nbsp;&nbsp;&nbsp;
+    <br>
+    <div id="resultMessage" class="center"></div>
+    <br>
+    <!--
+    <a href="javascript:bookingTest.run()" >LoadTestData</a><br><br>
+    -->
+    <div id="calendarContainer"></div>
+  </div>
+</body>
+</html>
