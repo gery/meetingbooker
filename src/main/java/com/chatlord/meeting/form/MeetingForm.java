@@ -28,11 +28,8 @@ public class MeetingForm {
     static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public Meeting toEntity() {
-
-        LocalDateTime fromDate = LocalDateTime.parse(date + " " + timeFrom, formatter); 
-                                                                                       
-        LocalDateTime toDate = LocalDateTime.parse(date + " " + timeTo, formatter); 
-                                                                                   
+        LocalDateTime fromDate = LocalDateTime.parse(date + " " + timeFrom, formatter);                                                                                        
+        LocalDateTime toDate = LocalDateTime.parse(date + " " + timeTo, formatter);                                                                                    
         return Meeting.builder()
                 .name(name)
                 .timeFrom(fromDate)
