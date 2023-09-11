@@ -31,7 +31,7 @@ class MeetingApplicationTests {
 	@Test
 	void testSave() throws Exception {
 
-        meetingRepository.deleteAll();
+		meetingRepository.deleteAll();
 
 		Collection<Meeting> meetings = meetingRepository.findAll();
 		assertThat(meetings).isEmpty();
@@ -49,51 +49,51 @@ class MeetingApplicationTests {
 
 	}
 
-
 	@Test
 	void testValidationCollision() throws Exception {
-		 meetingRepository.deleteAll();
+		meetingRepository.deleteAll();
 
 		this.mockMvc.perform(
 				post("/meeting")
 						.contentType("application/json")
 						.content(
-								"{\"name\": \"Joe\", \"date\": \"2023-09-12\", \"timeFrom\": \"10:00\", \"timeTo\": \"12:00\"}"))
+								"{\"name\": \"Joe\", \"date\": \"2023-09-12\", \"timeFrom\": \"10:00\", \"timeTo\": \"10:30\"}"))
 				.andExpect(status().isCreated());
 
 		this.mockMvc.perform(
 				post("/meeting")
 						.contentType("application/json")
 						.content(
-								"{\"name\": \"John\", \"date\": \"2023-09-12\", \"timeFrom\": \"09:00\", \"timeTo\": \"13:00\"}"))
-				.andExpect(status().isBadRequest() );		
+								"{\"name\": \"John\", \"date\": \"2023-09-12\", \"timeFrom\": \"09:00\", \"timeTo\": \"11:00\"}"))
+				.andExpect(status().isBadRequest())
+				.andExpect(content().string("{\"errors\":[\"Collision with other meetings\"]}"));
 
-		Collection<Meeting> meetings= meetingRepository.findAll();
+		Collection<Meeting> meetings = meetingRepository.findAll();
 		assertThat(meetings.size()).isEqualTo(1);
 		assertThat(meetings.stream().findFirst().get().getName()).isEqualTo("Joe");
 	}
 
-    @Test
+	@Test
 	void testValidationBigInterval() throws Exception {
-		 meetingRepository.deleteAll();
+		meetingRepository.deleteAll();
 
 		this.mockMvc.perform(
 				post("/meeting")
 						.contentType("application/json")
 						.content(
 								"{\"name\": \"Joe\", \"date\": \"2023-09-12\", \"timeFrom\": \"10:00\", \"timeTo\": \"17:00\"}"))
-				.andExpect(status().isBadRequest() )
+				.andExpect(status().isBadRequest())
 				.andExpect(content().string("{\"errors\":[\"The interval is more than 3 hours\"]}"));
 
-		Collection<Meeting> meetings= meetingRepository.findAll();
+		Collection<Meeting> meetings = meetingRepository.findAll();
 		assertThat(meetings.size()).isEqualTo(0);
 	}
 
 	@Test
 	void testValidationWeekend() throws Exception {
-		 meetingRepository.deleteAll();
+		meetingRepository.deleteAll();
 
-		 this.mockMvc.perform(
+		this.mockMvc.perform(
 				post("/meeting")
 						.contentType("application/json")
 						.content(
@@ -101,7 +101,7 @@ class MeetingApplicationTests {
 				.andExpect(status().isBadRequest())
 				.andExpect(content().string("{\"errors\":[\"Weekend is not available for booking\"]}"));
 
-		Collection<Meeting> meetings= meetingRepository.findAll();
+		Collection<Meeting> meetings = meetingRepository.findAll();
 		assertThat(meetings.size()).isEqualTo(0);
 	}
 
@@ -124,21 +124,21 @@ class MeetingApplicationTests {
 						.contentType("application/json")
 						.content(
 								"{\"name\": \"Person2\", \"date\": \"2023-12-12\", \"timeFrom\": \"10:00\", \"timeTo\": \"11:30\"}"))
-				.andExpect(status().isCreated());	
+				.andExpect(status().isCreated());
 
 		this.mockMvc.perform(
 				post("/meeting")
 						.contentType("application/json")
 						.content(
 								"{\"name\": \"Person3\", \"date\": \"2023-12-12\", \"timeFrom\": \"11:30\", \"timeTo\": \"12:30\"}"))
-				.andExpect(status().isCreated());	
+				.andExpect(status().isCreated());
 
 		this.mockMvc.perform(
 				post("/meeting")
 						.contentType("application/json")
 						.content(
 								"{\"name\": \"Person4\", \"date\": \"2023-12-12\", \"timeFrom\": \"13:00\", \"timeTo\": \"15:00\"}"))
-				.andExpect(status().isCreated());					
+				.andExpect(status().isCreated());
 
 		meetings = meetingRepository.findAll();
 		assertThat(meetings.size()).isEqualTo(4);
